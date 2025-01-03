@@ -1,0 +1,23 @@
+TODO FOR "Asscilaunt-Platforming"
+Programming:
+* Make basic hazards, enemies and pickups
+* Make a level system for levels with multiple rooms
+* Make world system for level packs
+* Make a level editor :
+	* Make level file encoder and decoder
+	* Make a level editor GUI for making levels
+	* Make setting page for level and editor options
+	* Do these for worlds if we can
+Art & Story:
+* Make sprites for those basic hazards, enemies and pickups
+* Try to make a story
+* Decide on world themes
+* Add animations to player
+Music:
+* Make the essentials :
+	* Main Menu
+	* Pause Menu
+	* Level Editor
+	* World Screen
+* Make the first world theme
+* Make essential SFX
