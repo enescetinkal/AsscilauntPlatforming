@@ -2,21 +2,26 @@ extends CharacterBody2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-var controlState : String = "flip"
-var SPEED : float = 120.0
+enum control_state {
+	FLIP,
+	JUMP,
+}
+
+@export var controlState1 = control_state.FLIP
+@export var SPEED : float = 120.0
 const ACCELERATION : float = 800.0
 const FRICTION : float = 800.0
 var changedGravity : bool = false
+
+
 
 func _ready() -> void :
 	pass
 
 func _physics_process(delta: float) -> void:
-	if controlState == "flip":
-		_flip_player(delta)
+	_flip_player(delta)
 	
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("player1_left", "player1_right")
 	if direction:
 		velocity.x = move_toward(velocity.x, SPEED * direction, ACCELERATION * delta)
@@ -34,13 +39,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _flip_player(delta):
-	if not is_on_floor() or not is_on_ceiling():
-		if changedGravity == false:
-			velocity += get_gravity() * delta
-		if changedGravity == true:
-			velocity -= get_gravity() * delta
-	if velocity.y >= 700 :
-		velocity.y = 700
+	if controlState1 == control_state.FLIP:
+		if not is_on_floor() or not is_on_ceiling():
+			if changedGravity == false:
+				velocity += get_gravity() * delta
+			if changedGravity == true:
+				velocity -= get_gravity() * delta
+		if velocity.y >= 700 :
+			velocity.y = 700
 	
 	# Handle flipping.
 	if Input.is_action_just_pressed("player1_mainAction"):
