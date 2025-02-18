@@ -1,0 +1,137 @@
+[gd_scene load_steps=6 format=3 uid="uid://j2dslwll2uy7"]
+
+[sub_resource type="GDScript" id="GDScript_cqahc"]
+script/source = "extends Node2D
+
+var camera_trigger_left : bool = false
+var camera_trigger_right : bool = false
+var camera_trigger_up : bool  = false
+var camera_trigger_down : bool = false
+
+@onready var camera_2d: Camera2D = $\"../Camera2D\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_area_2d_left_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_left == false :
+		camera_trigger_left = true
+		position.x -= 640
+		camera_2d.position.x -= 640
+		print(\"camera moved to left!\")
+
+
+func _on_area_2d_right_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_right == false :
+		camera_trigger_right = true
+		position.x += 640
+		camera_2d.position.x += 640
+		print(\"camera moved to right!\")
+
+
+func _on_area_2d_up_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_up == false :
+		camera_trigger_up = true
+		position.y += 480
+		camera_2d.position.y += 480
+		print(\"camera moved up!\")
+
+
+func _on_area_2d_down_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_down == false :
+		camera_trigger_down = true
+		position.y -= 480
+		camera_2d.position.y -= 480
+		print(\"camera moved down!\")
+
+
+func _on_area_2d_left_body_exited(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_left == true :
+		camera_trigger_left = false
+
+
+func _on_area_2d_right_body_exited(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_right == true :
+		camera_trigger_right = false
+
+
+func _on_area_2d_up_body_exited(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_up == true :
+		camera_trigger_up = false
+
+func _on_area_2d_down_body_exited(body: Node2D) -> void:
+	if body.is_in_group(\"Player\") and camera_trigger_down == true :
+		camera_trigger_down = false
+"
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_q8kia"]
+a = Vector2(3.5, -245)
+b = Vector2(3.5, 243)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_mjkxq"]
+a = Vector2(3.5, -245)
+b = Vector2(3.5, 243)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_nntg3"]
+a = Vector2(5, -280.5)
+b = Vector2(5.00003, 365.5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_n4dsd"]
+a = Vector2(5, -280.5)
+b = Vector2(5.00003, 365.5)
+
+[node name="CameraChecker" type="Node2D"]
+script = SubResource("GDScript_cqahc")
+
+[node name="Area2DLeft" type="Area2D" parent="."]
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DLeft"]
+position = Vector2(-5.5, 241)
+shape = SubResource("SegmentShape2D_q8kia")
+
+[node name="Area2DRight" type="Area2D" parent="."]
+position = Vector2(623, 10)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DRight"]
+position = Vector2(16, 231)
+shape = SubResource("SegmentShape2D_mjkxq")
+
+[node name="Area2DUp" type="Area2D" parent="."]
+position = Vector2(10, -10)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DUp"]
+position = Vector2(352.5, 487)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_nntg3")
+
+[node name="Area2DDown" type="Area2D" parent="."]
+position = Vector2(-10, 365)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DDown"]
+position = Vector2(372.5, -372)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_n4dsd")
+
+[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
+[connection signal="body_exited" from="Area2DLeft" to="." method="_on_area_2d_left_body_exited"]
+[connection signal="body_entered" from="Area2DRight" to="." method="_on_area_2d_right_body_entered"]
+[connection signal="body_exited" from="Area2DRight" to="." method="_on_area_2d_right_body_exited"]
+[connection signal="body_entered" from="Area2DUp" to="." method="_on_area_2d_up_body_entered"]
+[connection signal="body_exited" from="Area2DUp" to="." method="_on_area_2d_up_body_exited"]
+[connection signal="body_entered" from="Area2DDown" to="." method="_on_area_2d_down_body_entered"]
+[connection signal="body_exited" from="Area2DDown" to="." method="_on_area_2d_down_body_exited"]

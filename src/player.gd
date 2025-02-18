@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
 enum control_state {
 	FLIP,
@@ -52,7 +53,3 @@ func _flip_player(delta):
 	if Input.is_action_just_pressed("player1_mainAction"):
 		sprite_2d.flip_v = not sprite_2d.flip_v
 		changedGravity = not changedGravity
-
-
-func _on_off_screen_h_box_body_entered(body: Node2D) -> void:
-	queue_free()

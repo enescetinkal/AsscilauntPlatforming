@@ -24,6 +24,10 @@ window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_width"
 
+[global_group]
+
+Player=""
+
 [input]
 
 player1_left={
