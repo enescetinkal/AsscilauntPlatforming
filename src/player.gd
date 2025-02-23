@@ -35,7 +35,6 @@ func _physics_process(delta: float) -> void:
 		SPEED = 60.0
 	elif Input.is_action_just_released("player1_crouch"):
 		SPEED = 120.0
-	
 
 	move_and_slide()
 
