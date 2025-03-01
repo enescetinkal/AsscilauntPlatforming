@@ -2558,6 +2558,10 @@ anchor_mode = 0
 [node name="Spike" parent="Spikes" instance=ExtResource("3_ovpj1")]
 position = Vector2(149, 433)
 
+[node name="Spike2" parent="Spikes" instance=ExtResource("3_ovpj1")]
+position = Vector2(325, 27)
+rotation = 3.14159
+
 [node name="ColidingBlocks" type="TileMapLayer" parent="."]
 use_parent_material = true
 position = Vector2(37, 34)
@@ -2575,3 +2579,6 @@ tile_set = SubResource("TileSet_t8ya7")
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("3_37nxx")]
 position = Vector2(-10, 380)
 floor_snap_length = 5.5
+
+[connection signal="player_hurt" from="Spikes/Spike" to="Player" method="_on_spike_player_hurt"]
+[connection signal="player_hurt" from="Spikes/Spike2" to="Player" method="_on_spike_player_hurt"]

@@ -52,3 +52,7 @@ func _flip_player(delta):
 	if Input.is_action_just_pressed("player1_mainAction"):
 		sprite_2d.flip_v = not sprite_2d.flip_v
 		changedGravity = not changedGravity
+
+
+func _on_spike_player_hurt() -> void:
+	queue_free()
